@@ -1,0 +1,56 @@
+151956
+Q3 Transport Fleet Management System
+class Vehicle:
+    def init(self, registration_number, make, model):
+        self.registration_number = registration_number
+        self.make = make
+        self.model = model
+
+class Car(Vehicle):
+    def init(self, registration_number, make, model, number_of_seats):
+        super().init(registration_number, make, model)
+        self.number_of_seats = number_of_seats
+
+class Truck(Vehicle):
+    def init(self, registration_number, make, model, cargo_capacity):
+        super().init(registration_number, make, model)
+        self.cargo_capacity = cargo_capacity
+
+class Motorcycle(Vehicle):
+    def init(self, registration_number, make, model, engine_capacity):
+        super().init(registration_number, make, model)
+        self.engine_capacity = engine_capacity
+
+class Fleet:
+    def init(self):
+        self.vehicles = []
+
+    def add_vehicle(self, vehicle):
+        self.vehicles.append(vehicle)
+
+    def display_vehicles(self):
+        if not self.vehicles:
+            print("No vehicles to display.")
+        else:
+            for vehicle in self.vehicles:
+                print(f"Registration Number: {vehicle.registration_number}, Make: {vehicle.make}, Model: {vehicle.model}")
+
+    def search_vehicle(self, registration_number):
+        for vehicle in self.vehicles:
+            if vehicle.registration_number.lower() == registration_number.lower():
+                print(f"Found vehicle - Registration Number: {vehicle.registration_number}, Make: {vehicle.make}, Model: {vehicle.model}")
+                return
+        print("Vehicle not found.")
+
+# Demonstration
+fleet = Fleet()
+car = Car("ABC123", "Toyota", "Corolla", 5)
+truck = Truck("DEF456", "Ford", "F150", 1000)
+motorcycle = Motorcycle("GHI789", "Yamaha", "YZF-R3", 300)
+
+fleet.add_vehicle(car)
+fleet.add_vehicle(truck)
+fleet.add_vehicle(motorcycle)
+
+fleet.display_vehicles()
+fleet.search_vehicle("ABC123")
