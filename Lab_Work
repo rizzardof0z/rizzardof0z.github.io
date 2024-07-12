@@ -1,0 +1,61 @@
+151956
+Q2 School Class Management System
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = {}
+
+    def add_grade(self, subject, grade):
+        self.grades[subject] = grade
+
+    def get_average_grade(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades.values()) / len(self.grades)
+
+class Classroom:
+    def __init__(self):
+        self.students = []
+
+    def add_student(self, student):
+        self.students.append(student)
+
+    def display_students(self):
+        if not self.students:
+            print("No students to display.")
+        else:
+            for student in self.students:
+                print(f"Name: {student.name}, Grades: {student.grades}")
+
+    def get_student_average(self, name):
+        for student in self.students:
+            if student.name.lower() == name.lower():
+                return student.get_average_grade()
+        return None
+
+    def get_subject_average(self, subject):
+        total = 0
+        count = 0
+        for student in self.students:
+            if subject in student.grades:
+                total += student.grades[subject]
+                count += 1
+        if count == 0:
+            return 0
+        return total / count
+
+# Demonstration
+classroom = Classroom()
+student1 = Student("Alice")
+student1.add_grade("Math", 85)
+student1.add_grade("Science", 90)
+student2 = Student("Bob")
+student2.add_grade("Math", 75)
+student2.add_grade("Science", 80)
+
+classroom.add_student(student1)
+classroom.add_student(student2)
+
+classroom.display_students()
+print(f"Alice's average grade: {classroom.get_student_average('Alice')}")
+print(f"Class average for Math: {classroom.get_subject_average('Math')}")
